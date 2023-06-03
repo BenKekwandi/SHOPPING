@@ -5,19 +5,17 @@ require_once(ROOT_PATH.'/models/productModel.php');
 
 class ProductController extends Controller
 {
-   
     function __construct() {
         $this->model = new ProductModel();
     }
 
-
     function viewAll_get() {
-        $result = $this->model->get_all();
+        $result = $this->model->all();
         echo json_encode($result);
     }
 
     function getById_get($id) {
-        $result = $this->model->get($id);
+        $result = $this->model->find($id);
         echo json_encode($result);
     }
 
@@ -28,12 +26,12 @@ class ProductController extends Controller
             $allowedExtensions = array('jpg', 'jpeg', 'png');
             $targetDirectory = '././uploads/products/';
             $uploadedFile = $_FILES['picture'];
-    
+
             $fileName = basename($uploadedFile['name']);
             $targetFile = $targetDirectory . $fileName;
             $fileExtension = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
-            $new_product= array(
+            $new_product = array(
                 'name' => $_POST['name'],
                 'category_id' => $_POST['category'],
                 'picture' => $_FILES['picture']['name'],
@@ -42,32 +40,32 @@ class ProductController extends Controller
 
             if (!in_array($fileExtension, $allowedExtensions)) {
                 echo "Sorry, only JPG, JPEG, and PNG files are allowed.";
-            } 
-            else 
+            }
+            else
             {
-                if (move_uploaded_file($uploadedFile['tmp_name'], $targetFile)) 
+                if (move_uploaded_file($uploadedFile['tmp_name'], $targetFile))
                 {
                     echo "The file has been uploaded successfully.";
-                    $this->model->create('product',$new_product);
+                    $this->model->create($new_product);
                     header('Location: /products');
                     exit();
 
-                } 
-                else 
+                }
+                else
                 {
                     echo "Sorry, there was an error uploading your file.";
                 }
             }
 
         }
-        $data = $this->model->get_all();
+        $data = $this->model->all();
 
         $this->load_view('create_product',$data);
     }
+
     public function index()
     {
-        $data = $this->model->get_all();
+        $data = $this->model->all();
         $this->load_view('products',$data);
     }
-
 }

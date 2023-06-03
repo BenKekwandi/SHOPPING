@@ -1,94 +1,70 @@
 <?php
 
-//echo "Hello world";
+require_once 'vendor/autoload.php';
+define('BASE_URL', 'http://127.0.0.1:8000');
 
 define('ROOT_PATH', __DIR__);
 
-
-require_once(ROOT_PATH.'/controllers/homeController.php');
-require_once(ROOT_PATH.'/controllers/categoryController.php');
-require_once(ROOT_PATH.'/controllers/productController.php');
-require_once(ROOT_PATH.'/controllers/userController.php');
-require_once(ROOT_PATH.'/controllers/orderController.php');
-require_once(ROOT_PATH.'/controllers/testController.php');
+$controllers = [
+    '/' => 'HomeController@index',
+    '/cart' => 'HomeController@cart_get',
+    '/view-products' => 'HomeController@products_get',
+    '/admin' => 'HomeController@admin',
+    '/products' => 'ProductController@index',
+    '/api-products' => 'ProductController@viewAll_get',
+    '/product' => 'ProductController@viewAll_get',
+    '/product-create' => 'ProductController@create',
+    '/categories' => 'CategoryController@index',
+    '/category-create' => 'CategoryController@create',
+    '/api-categories' => 'CategoryController@viewAll_get',
+    '/test' => 'TestController@index',
+    '/orders' => 'OrderController@index',
+    '/users' => 'UserController@index',
+    '/login' => 'UserController@login',
+    '/logout' => 'UserController@logout',
+    '/shop' => 'ShopController@index'
+];
 
 $uri = $_SERVER['REQUEST_URI'];
+$segments = explode('/', trim($uri, '/'));
 
-switch($uri)
-{
-    case '/':
-        $home = new HomeController();
-        $home->index();
-        break;
-    case '/cart':
-        $home = new HomeController();
-        $home->cart_get();
-        break;
-    case '/view-products':
-        $home = new HomeController();
-        $home->products_get();
-        break;
-    case '/admin':
-        $home = new HomeController();
-        $home->admin();
-        break;
+if ($segments[0] === 'view-products') {
+    $id = isset($segments[1]) ? $segments[1] : null;
+    $routeWithId = '/view-products';
 
-    case '/products':
-        $product = new ProductController();
-        $product->index();
-        break;
-    case '/api-products':
-        $product = new ProductController();
-        $product->viewAll_get();
-        break;
-        
-    case '/product':
-        $product = new ProductController();
-        $product->viewAll_get();
-        break;
-    case '/product-create':
-        $product = new ProductController();
-        $product->create();
-        break;
+    if (isset($controllers[$routeWithId])) {
+        [$controllerName, $methodName] = explode('@', $controllers[$routeWithId]);
+        $controllerClassName = ucfirst($controllerName);
+        $controllerName = lcfirst($controllerName);
+        $controllerFilePath = ROOT_PATH . '/controllers/' . $controllerName . '.php';
 
-    case '/categories':
-        $category = new CategoryController();
-        $category->index();
-        break;
+        if (file_exists($controllerFilePath)) {
+            require_once $controllerFilePath;
+            $controller = new $controllerClassName();
 
-    case '/category-create':
-        $category = new CategoryController();
-        $category->create();
-        break;
-    case '/api-categories':
-        $category = new CategoryController();
-        $category->viewAll_get();
-        break;
-
-    case '/test':
-        $test = new TestController();
-        $test->index();
-        break;
-
-    case '/orders':
-        $order = new OrderController();
-        $order->index();
-        break;
-    case '/users':
-        $user = new UserController();
-        $user->index();
-        break;
-    case '/login':
-        echo "Logged In";
-        break;
-    case '/logout':
-        echo "Logged Out";
-        break;
-    case '/shop':
-        echo "shopping";
-        break;
-    default:
-        echo "404 ERROR";
-        break;
-    
+            if (method_exists($controller, $methodName)) {
+                $controller->$methodName($id);
+                exit;
+            }
+        }
+    }
 }
+
+if (isset($controllers[$uri])) {
+    [$controllerName, $methodName] = explode('@', $controllers[$uri]);
+    $controllerClassName = ucfirst($controllerName);
+    $controllerName = lcfirst($controllerName);
+    $controllerFilePath = ROOT_PATH . '/controllers/' . $controllerName . '.php';
+
+    if (file_exists($controllerFilePath)) {
+        require_once $controllerFilePath;
+        $controller = new $controllerClassName();
+
+        if (method_exists($controller, $methodName)) {
+            $controller->$methodName();
+            exit;
+        }
+    }
+}
+
+echo "404 ERROR";

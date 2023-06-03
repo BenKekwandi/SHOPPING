@@ -102,7 +102,7 @@ require_once('header.php');
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          Our Products
+          Product Categories
         </h2>
       </div>
       <div class="row">
@@ -113,13 +113,13 @@ require_once('header.php');
       ?>
       
 
-      <div class="col-sm-6 col-lg-4">
+      <div class="col-sm-6 col-lg-3">
           <div class="box">
             <div class="img-box">
-              <img src="uploads/products/<?php echo $value['picture']; ?>" alt="">
-              <a href="" class="add_cart_btn">
+              <img src="uploads/categories/<?php echo $value['picture']; ?>" alt="">
+              <a href="/view-products/<?php echo $value['id']; ?>" class="add_cart_btn">
                 <span>
-                  Add To Cart
+                  View Products
                 </span>
               </a>
             </div>
@@ -128,9 +128,9 @@ require_once('header.php');
               <?php echo $value['name']; ?>
               </h5>
               <div class="product_info">
-                <h5>
-                  <span>$</span> <?php echo $value['price']; ?>
-                </h5>
+                <!--h5>
+                  <span>$</span> <?php //echo $value['price']; ?>
+                </h5-->
                 
                 <div>
                   <?php echo $value['description']; ?>

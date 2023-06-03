@@ -13,19 +13,19 @@ class  OrderController extends Controller
 
 
     function viewAll_get() {
-        $result = $this->model->get_all();
+        $result = $this->model->all();
         echo json_encode($result);
     }
 
     function getById_get($id) {
-        $result = $this->model->get($id);
+        $result = $this->model->find($id);
         echo json_encode($result);
     }
 
 
     public function index()
     {
-        $data = $this->model->get_all();
+        $data = $this->model->all();
         $this->load_view('order',$data);
     }
 
