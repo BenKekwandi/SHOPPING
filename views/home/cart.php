@@ -4,7 +4,12 @@ require_once('header.php');
 
 ?>
 
-<div><h1>CART SECTION</h1></div>
+<?php
+
+require_once('home_cart.php');
+
+?>
+
 
 
 <?php

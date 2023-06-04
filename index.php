@@ -8,7 +8,8 @@ define('ROOT_PATH', __DIR__);
 $controllers = [
     '/' => 'HomeController@index',
     '/cart' => 'HomeController@cart_get',
-    '/view-products' => 'HomeController@products_get',
+    '/all-products' => 'HomeController@all_products_get',
+    '/category-products' => 'HomeController@category_products_get',
     '/admin' => 'HomeController@admin',
     '/products' => 'ProductController@index',
     '/api-products' => 'ProductController@viewAll_get',
@@ -18,6 +19,7 @@ $controllers = [
     '/category-create' => 'CategoryController@create',
     '/api-categories' => 'CategoryController@viewAll_get',
     '/test' => 'TestController@index',
+    '/buy'=>'OrderController@order_post',
     '/orders' => 'OrderController@index',
     '/users' => 'UserController@index',
     '/login' => 'UserController@login',
@@ -28,9 +30,9 @@ $controllers = [
 $uri = $_SERVER['REQUEST_URI'];
 $segments = explode('/', trim($uri, '/'));
 
-if ($segments[0] === 'view-products') {
+if ($segments[0] === 'category-products') {
     $id = isset($segments[1]) ? $segments[1] : null;
-    $routeWithId = '/view-products';
+    $routeWithId = '/category-products';
 
     if (isset($controllers[$routeWithId])) {
         [$controllerName, $methodName] = explode('@', $controllers[$routeWithId]);

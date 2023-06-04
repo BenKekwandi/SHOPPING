@@ -22,14 +22,16 @@ require_once('header.php');
                      <?php echo $value['name']; ?>
                     </h1>
                     <p>
-                        
-                    </p>
-                    <p>
                         <?php echo $value['description']; ?> 
                     </p>
-                    <!--a href="">
-                      Read More
-                    </a-->
+                    <p>
+                        <a href="/cart" class="add_cart_btn">
+                            <span>
+                            Add To Cart
+                            </span>
+                        </a>  
+                    </p>
+                    
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -82,7 +84,7 @@ require_once('header.php');
           <div class="box">
             <div class="img-box">
               <img src="uploads/products/<?php echo $value['picture']; ?>" alt="">
-              <a href="" class="add_cart_btn">
+              <a href="/cart" class="add_cart_btn">
                 <span>
                   Add To Cart
                 </span>
@@ -353,6 +355,8 @@ require_once('header.php');
     </div>
   </section>
   <!-- end client section -->
+
+
 
   <?php
 

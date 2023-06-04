@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : mar. 23 mai 2023 à 00:03
--- Version du serveur : 10.4.25-MariaDB
--- Version de PHP : 8.1.10
+-- Hôte : 127.0.0.1:3307
+-- Généré le : dim. 04 juin 2023 à 17:58
+-- Version du serveur : 10.4.27-MariaDB
+-- Version de PHP : 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,7 +27,34 @@ SET time_zone = "+00:00";
 -- Structure de la table `category`
 --
 
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(5000) DEFAULT NULL,
+  `picture` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `category`
+--
+
+INSERT INTO `category` (`id`, `name`, `description`, `picture`) VALUES
+(5, 'I phone 14', 'I phone 14', 'Apple_iphone13_hero_09142021_inline.jpg.large.jpg'),
+(6, 'Samsung', 'Samsung Galaxy', 'Gallery-Galaxy_A14_5G_Black_Front-dCopy.jpg'),
+(7, 'Computer Charger', 'simple computer charger Xp Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever ', 'Hdf6ae05151944213a5e7d8b9c785e3dbI.jpg'),
+(8, 'Televisions', 'Modern TVs', '81wfAUntItL._AC_UF894,1000_QL80_.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ordered_products`
+--
+
+CREATE TABLE `ordered_products` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -40,8 +67,8 @@ CREATE TABLE `orders` (
   `user_id` int(11) DEFAULT NULL,
   `order_no` varchar(255) DEFAULT NULL,
   `order_status_id` int(11) DEFAULT NULL,
-  `order_time` datetime
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `order_time` datetime DEFAULT curdate()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -52,7 +79,7 @@ CREATE TABLE `orders` (
 CREATE TABLE `order_status` (
   `id` int(11) NOT NULL,
   `description` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -62,19 +89,21 @@ CREATE TABLE `order_status` (
 
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
-  `category_id` int(11) DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
   `name` varchar(250) NOT NULL,
-  `picture` varchar(250) DEFAULT NULL,
-  `description` varchar(5000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `picture` varchar(250) NOT NULL,
+  `description` varchar(5000) DEFAULT NULL,
+  `price` double NOT NULL,
+  `quantity` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `product`
 --
 
-INSERT INTO `product` (`id`, `category_id`, `name`, `picture`, `description`) VALUES
-(1, 5, 'I phone 14 Pro Max', 'iphone-14-pro_overview__3dn6st99cpea_og.png', 'dyhjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj'),
-(2, 5, 'samsung', 'Apple-iPhone-11-Pro-Max-vs.-Samsung-Galaxy-Note-20-Ultra.jpg', 'Samsung Pro Max');
+INSERT INTO `product` (`id`, `category_id`, `name`, `picture`, `description`, `price`, `quantity`) VALUES
+(1, 5, 'Iphone14', 'iphone-14-pro_overview__3dn6st99cpea_og.png', 'I phone Pro Max', 25.8, 0),
+(2, 5, 'samsung', 'Apple-iPhone-11-Pro-Max-vs.-Samsung-Galaxy-Note-20-Ultra.jpg', 'Samsung Pro Max', 48.5, 0);
 
 -- --------------------------------------------------------
 
@@ -89,7 +118,7 @@ CREATE TABLE `users` (
   `surname` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -100,7 +129,7 @@ CREATE TABLE `users` (
 CREATE TABLE `user_type` (
   `id` int(11) NOT NULL,
   `description` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Index pour les tables déchargées
@@ -110,6 +139,12 @@ CREATE TABLE `user_type` (
 -- Index pour la table `category`
 --
 ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `ordered_products`
+--
+ALTER TABLE `ordered_products`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -155,6 +190,12 @@ ALTER TABLE `user_type`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT pour la table `ordered_products`
+--
+ALTER TABLE `ordered_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `orders`
