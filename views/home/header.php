@@ -71,7 +71,18 @@
               <a href="" class="account-link">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>
-                  My Account
+                  <?php
+
+                  if(isset($_SESSION['username']))
+                  {
+                    echo $_SESSION['username'];
+                  }
+                  else
+                  {
+                    echo '<a href="/login">Log In</a>';
+                  }
+
+                  ?>
                 </span>
               </a>
               <a href="/cart" class="cart-link">

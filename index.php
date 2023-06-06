@@ -5,6 +5,8 @@ define('BASE_URL', 'http://127.0.0.1:8000');
 
 define('ROOT_PATH', __DIR__);
 
+session_start();
+
 $controllers = [
     '/' => 'HomeController@index',
     '/cart' => 'HomeController@cart_get',
@@ -22,13 +24,36 @@ $controllers = [
     '/buy'=>'OrderController@order_post',
     '/orders' => 'OrderController@index',
     '/users' => 'UserController@index',
-    '/login' => 'UserController@login',
-    '/logout' => 'UserController@logout',
+    '/login' => 'HomeController@login',
+    '/logout' => 'HomeController@logout',
+    '/register' => 'HomeController@register',
     '/shop' => 'ShopController@index'
 ];
 
+function isLoggedIn()
+{
+    return isset($_SESSION['username']);
+}
+
 $uri = $_SERVER['REQUEST_URI'];
 $segments = explode('/', trim($uri, '/'));
+
+if($segments[0]=='cart')
+{
+    if (!isLoggedIn()) 
+    {
+        header('Location: /login');
+        exit;
+    }
+}
+if($segments[0]=='admin')
+{
+    if(!isLoggedIn()) 
+    {
+        header('Location: /login');
+        exit;
+    }
+}
 
 if ($segments[0] === 'category-products') {
     $id = isset($segments[1]) ? $segments[1] : null;

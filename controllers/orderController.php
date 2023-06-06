@@ -27,7 +27,8 @@ class  OrderController extends Controller
         echo "Hey there\n";
         $requestBody = file_get_contents('php://input');
         $data = json_decode($requestBody, true);
-        print_r($data);
+        //print_r($data);
+        header('Location:/');
     }
 
     public function index()

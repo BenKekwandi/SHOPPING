@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : dim. 04 juin 2023 à 17:58
+-- Généré le : mar. 06 juin 2023 à 22:30
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -31,18 +31,20 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(5000) DEFAULT NULL,
-  `picture` varchar(250) DEFAULT NULL
+  `picture` varchar(250) DEFAULT NULL,
+  `created_at` date DEFAULT curdate(),
+  `updated_at` date DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `category`
 --
 
-INSERT INTO `category` (`id`, `name`, `description`, `picture`) VALUES
-(5, 'I phone 14', 'I phone 14', 'Apple_iphone13_hero_09142021_inline.jpg.large.jpg'),
-(6, 'Samsung', 'Samsung Galaxy', 'Gallery-Galaxy_A14_5G_Black_Front-dCopy.jpg'),
-(7, 'Computer Charger', 'simple computer charger Xp Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever ', 'Hdf6ae05151944213a5e7d8b9c785e3dbI.jpg'),
-(8, 'Televisions', 'Modern TVs', '81wfAUntItL._AC_UF894,1000_QL80_.jpg');
+INSERT INTO `category` (`id`, `name`, `description`, `picture`, `created_at`, `updated_at`) VALUES
+(5, 'I phone 14', 'I phone 14', 'Apple_iphone13_hero_09142021_inline.jpg.large.jpg', '2023-06-06', '2023-06-06'),
+(6, 'Samsung', 'Samsung Galaxy', 'Gallery-Galaxy_A14_5G_Black_Front-dCopy.jpg', '2023-06-06', '2023-06-06'),
+(7, 'Computer Charger', 'simple computer charger Xp Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever ', 'Hdf6ae05151944213a5e7d8b9c785e3dbI.jpg', '2023-06-06', '2023-06-06'),
+(8, 'Televisions', 'Modern TVs', '81wfAUntItL._AC_UF894,1000_QL80_.jpg', '2023-06-06', '2023-06-06');
 
 -- --------------------------------------------------------
 
@@ -53,7 +55,9 @@ INSERT INTO `category` (`id`, `name`, `description`, `picture`) VALUES
 CREATE TABLE `ordered_products` (
   `id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL
+  `product_id` int(11) NOT NULL,
+  `created_at` date DEFAULT curdate(),
+  `updated_at` date DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -67,7 +71,9 @@ CREATE TABLE `orders` (
   `user_id` int(11) DEFAULT NULL,
   `order_no` varchar(255) DEFAULT NULL,
   `order_status_id` int(11) DEFAULT NULL,
-  `order_time` datetime DEFAULT curdate()
+  `order_time` datetime DEFAULT curdate(),
+  `created_at` date DEFAULT curdate(),
+  `updated_at` date DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -93,17 +99,19 @@ CREATE TABLE `product` (
   `name` varchar(250) NOT NULL,
   `picture` varchar(250) NOT NULL,
   `description` varchar(5000) DEFAULT NULL,
-  `price` double NOT NULL,
-  `quantity` int(11) DEFAULT NULL
+  `price` double DEFAULT 0,
+  `quantity` int(11) DEFAULT 0,
+  `created_at` date DEFAULT curdate(),
+  `updated_at` date DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `product`
 --
 
-INSERT INTO `product` (`id`, `category_id`, `name`, `picture`, `description`, `price`, `quantity`) VALUES
-(1, 5, 'Iphone14', 'iphone-14-pro_overview__3dn6st99cpea_og.png', 'I phone Pro Max', 25.8, 0),
-(2, 5, 'samsung', 'Apple-iPhone-11-Pro-Max-vs.-Samsung-Galaxy-Note-20-Ultra.jpg', 'Samsung Pro Max', 48.5, 0);
+INSERT INTO `product` (`id`, `category_id`, `name`, `picture`, `description`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
+(1, 5, 'Iphone14', 'iphone-14-pro_overview__3dn6st99cpea_og.png', 'I phone Pro Max', 25.8, 0, '2023-06-06', '2023-06-06'),
+(2, 5, 'samsung', 'Apple-iPhone-11-Pro-Max-vs.-Samsung-Galaxy-Note-20-Ultra.jpg', 'Samsung Pro Max', 48.5, 0, '2023-06-06', '2023-06-06');
 
 -- --------------------------------------------------------
 
@@ -117,7 +125,9 @@ CREATE TABLE `users` (
   `name` varchar(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL
+  `password` varchar(255) DEFAULT NULL,
+  `created_at` date DEFAULT curdate(),
+  `updated_at` date DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
