@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+     <base href="<?php echo BASE_URL; ?>" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,13 +17,18 @@
     <link rel="stylesheet" href="assets/css/lineicons.css" />
     <link rel="stylesheet" href="assets/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="assets/css/fullcalendar.css" />
-    <link rel="stylesheet" href="assets/css/fullcalendar.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/dashboard.css"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
-  </head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    </head>
   <body>
     <!-- ======== sidebar-nav start =========== -->
     <aside class="sidebar-nav-wrapper">
@@ -33,7 +39,10 @@
       </div>
       <nav class="sidebar-nav">
         <ul>
+
+  
           <li class="nav-item">
+
             <a
               href="/admin"
             >
@@ -51,7 +60,7 @@
          
           <li class="nav-item nav-item-has-children">
             <a
-              href="#0"
+              href="/admin/categories"
               class="collapsed"
               data-bs-toggle="collapse"
               data-bs-target="#ddmenu_1"
@@ -66,17 +75,17 @@
             </a>
             <ul id="ddmenu_1" class="collapse dropdown-nav">
               <li>
-                <a href="/categories">All Categories</a>
+                <a href="/admin/categories">All Categories</a>
               </li>
               <li>
-                <a href="/category-create">New Category</a>
+                <a href="/admin/category-create">New Category</a>
               </li>
             </ul>
           </li>
 
           <li class="nav-item nav-item-has-children">
             <a
-              href="#0"
+              href="/admin/products"
               class="collapsed"
               data-bs-toggle="collapse"
               data-bs-target="#ddmenu_2"
@@ -91,17 +100,17 @@
             </a>
             <ul id="ddmenu_2" class="collapse dropdown-nav">
               <li>
-                <a href="/products">All Products</a>
+                <a href="/admin/products">All Products</a>
               </li>
               <li>
-                <a href="/product-create">New Product</a>
+                <a href="/admin/product-create">New Product</a>
               </li>
             </ul>
           </li>
 
 
           <li class="nav-item">
-            <a href="/orders">
+            <a href="/admin/orders">
               <span class="icon">
               <i class="fa-solid fa-circle-dollar-to-slot"></i>
               </span>
@@ -110,7 +119,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="/users">
+            <a href="/admin/users">
               <span class="icon">
                 <i class="fa-solid fa-user"></i>
               </span>
@@ -144,6 +153,7 @@
                     <i class="lni lni-chevron-left me-2"></i> Menu
                   </button>
                 </div>
+                
                 <div class="header-search d-none d-md-flex">
                   <form action="#">
                     <input type="text" placeholder="Search..." />
@@ -154,129 +164,14 @@
             </div>
             <div class="col-lg-7 col-md-7 col-6">
               <div class="header-right">
-                <!-- notification start -->
-                <div class="notification-box ml-15 d-none d-md-flex">
-                  <button
-                    class="dropdown-toggle"
-                    type="button"
-                    id="notification"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="lni lni-alarm"></i>
-                    <span>2</span>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-end"
-                    aria-labelledby="notification"
-                  >
-                    <li>
-                      <a href="#0">
-                        <div class="image">
-                          <img src="assets/images/lead/lead-6.png" alt="" />
-                        </div>
-                        <div class="content">
-                          <h6>
-                            John Doe
-                            <span class="text-regular">
-                              comment on a product.
-                            </span>
-                          </h6>
-                          <p>
-                            Lorem ipsum dolor sit amet, consect etur adipiscing
-                            elit Vivamus tortor.
-                          </p>
-                          <span>10 mins ago</span>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#0">
-                        <div class="image">
-                          <img src="assets/images/lead/lead-1.png" alt="" />
-                        </div>
-                        <div class="content">
-                          <h6>
-                            Jonathon
-                            <span class="text-regular">
-                              like on a product.
-                            </span>
-                          </h6>
-                          <p>
-                            Lorem ipsum dolor sit amet, consect etur adipiscing
-                            elit Vivamus tortor.
-                          </p>
-                          <span>10 mins ago</span>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- notification end -->
-                <!-- message start -->
-                <div class="header-message-box ml-15 d-none d-md-flex">
-                  <button
-                    class="dropdown-toggle"
-                    type="button"
-                    id="message"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <i class="lni lni-envelope"></i>
-                    <span>3</span>
-                  </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-end"
-                    aria-labelledby="message"
-                  >
-                    <li>
-                      <a href="#0">
-                        <div class="image">
-                          <img src="assets/images/lead/lead-5.png" alt="" />
-                        </div>
-                        <div class="content">
-                          <h6>Jacob Jones</h6>
-                          <p>Hey!I can across your profile and ...</p>
-                          <span>10 mins ago</span>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#0">
-                        <div class="image">
-                          <img src="assets/images/lead/lead-3.png" alt="" />
-                        </div>
-                        <div class="content">
-                          <h6>John Doe</h6>
-                          <p>Would you mind please checking out</p>
-                          <span>12 mins ago</span>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#0">
-                        <div class="image">
-                          <img src="assets/images/lead/lead-2.png" alt="" />
-                        </div>
-                        <div class="content">
-                          <h6>Anee Lee</h6>
-                          <p>Hey! are you available for freelance?</p>
-                          <span>1h ago</span>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- message end -->
-                <!-- filter start -->
-                <div class="filter-box ml-15 d-none d-md-flex">
-                  <button class="" type="button" id="filter">
-                    <i class="lni lni-funnel"></i>
-                  </button>
-                </div>
-                <!-- filter end -->
+                
                 <!-- profile start -->
                 <div class="profile-box ml-15">
+                <div class="mr-20">
+                  <a href="/" class="main-btn primary-btn btn-hover text-white align-center">
+                    Shop
+                  </a>
+                </div>
                   <button
                     class="dropdown-toggle bg-transparent border-0"
                     type="button"
@@ -287,45 +182,26 @@
                     <div class="profile-info">
                       <div class="info">
                         <h6>Johnathan ELECTRONIX</h6>
-                        <div class="image">
+                        <!--div class="image">
                           <img
                             src="assets/images/cards/code.jpg"
                             alt=""
                           />
                           <span class="status"></span>
-                        </div>
+                        </div-->
+                       
                       </div>
                     </div>
-                    <i class="lni lni-chevron-down"></i>
+
+                     <a href="/logout" class="">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                      </a>
                   </button>
-                  <ul
-                    class="dropdown-menu dropdown-menu-end"
-                    aria-labelledby="profile"
-                  >
-                    <li>
-                      <a href="#0">
-                        <i class="lni lni-user"></i> View Profile
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#0">
-                        <i class="lni lni-alarm"></i> Notifications
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#0"> <i class="lni lni-inbox"></i> Messages </a>
-                    </li>
-                    <li>
-                      <a href="#0"> <i class="lni lni-cog"></i> Settings </a>
-                    </li>
-                    <li>
-                      <a href="#0"> <i class="lni lni-exit"></i> Sign Out </a>
-                    </li>
-                  </ul>
+                 
                 </div>
                 <!-- profile end -->
               </div>
-            </div>
+            </div-->
           </div>
         </div>
       </header>

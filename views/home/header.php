@@ -92,6 +92,15 @@
                   Cart
                 </span>
               </a>
+
+              <?php
+                  if(isset($_SESSION['username']))
+                  {
+                    echo '<a href="/logout" class="cart-link">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        </a>';
+                  }
+              ?>
             </div>
           </div>
 
@@ -115,18 +124,27 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <!--li class="nav-item">
                   <a class="nav-link" href="/"> About</a>
-                </li>
+                </li-->
                 <li class="nav-item">
                   <a class="nav-link" href="/all-products">Products</a>
                 </li>
-                <li class="nav-item">
+                <!--li class="nav-item">
                   <a class="nav-link" href="/">Why Us</a>
-                </li>
-                <li class="nav-item">
+                </li-->
+                <!--li class="nav-item">
                   <a class="nav-link" href="/">Testimonial</a>
-                </li>
+                </li-->
+
+                <?php
+                  if(isset($_SESSION['admin_name']) && $_SESSION['user_type']=='admin')
+                  {
+                    echo '<li class="nav-item"><a class="nav-link" href="/admin" class="cart-link">
+                        Admin
+                        </a></li>';
+                  }
+                  ?>
               </ul>
             </div>
            

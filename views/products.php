@@ -4,59 +4,75 @@ require_once('header.php');
 
 
 <div class="container">
-<div class="title-wrapper pt-30">
-            <div class="row align-items-center">
-              <div class="col-md-6">
-                <div class="title mb-30">
-                  <h2>All Products</h2>
-                </div>
-              </div>
-              
-            </div>
-          </div>
+  <div id="table-wrapper">
+		<table id="products" class="display" cellspacing="0" width="100%">
+			<thead>
+				<th>Id</th>
+				<th>Name</th>
+				<!--th>Category</th-->
+        <th>Category</th>
+				<th>Description</th>
+				<th>Image</th>
+        <th>Actions</th>
+			</tr>
+			</thead>
+			<tfoot>
+				<tr >
+					<th>Id</th>
+				<th>Name</th>
+				<!--th>Category</th-->
+        <th>Category</th>
+				<th>Description</th>
+				<th>Image</th>
+        <th>Actions</th>
+				</tr>
+			</tfoot>
+			<tbody>
+				<tr>
 
-        <div class="col-lg-12">
-  <div class="row">
-    <?php
-    $counter = 0;
-    foreach ($data as $key => $value) {
-      if ($counter % 3 == 0 && $counter != 0) {
-        echo '</div><div class="row">';
-      }
-      ?>
-      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-        <div class="card-style-1 mb-30">
-          <div class="card-meta">
-            <div class="image">
-              <img src="assets/images/cards/code.jpg" alt="" />
-            </div>
-            <div class="text">
-              <p class="text-sm text-medium">
-                Posted by: <a href="#0">Jonathan</a>
-              </p>
-            </div>
-          </div>
-          <div class="card-image">
-            <a href="#0">
-              <img height=350 src="././uploads/products/<?php echo $value['picture']; ?>" alt="" />
-            </a>
-          </div>
-          <div class="card-content">
-            <h4><a href="#0"><?php echo $value['name']; ?></a></h4>
-            <p>
-              <?php echo $value['description']; ?>
-            </p>
-          </div>
-        </div>
-      </div>
-      <?php
-      $counter++;
-    }
-    ?>
-  </div>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 
 <?php
-require_once('footer.php');
+//require_once('footer.php');
 ?>
+
+<script>
+  $(document).ready(function() {
+    var dataSet = [];
+
+    $.ajax({
+      url: '/admin/api-products',
+      dataType: "json",
+      error: function(request) {
+        console.error("Error: ", request);
+      },
+      success: function(array) {
+        for (var i = 0; i < array.length; i++) {
+          var actions = `<div>
+          <!--a class="btn btn-outline-success">Edit</a-->
+              <a class="btn btn-outline-danger">Delete</a>
+            </div>`;
+          dataSet.push([
+            array[i].id,
+            array[i].name,
+            array[i].category,
+            array[i].description,
+            array[i].photo,
+            actions
+          ]);
+        }
+
+        var table = $('#products').DataTable({
+          data: dataSet,
+          responsive: true,
+          scrollX: 200
+        });
+      }
+    });
+  });
+</script>

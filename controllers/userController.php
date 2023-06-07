@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $data = $this->model->all();
+        $data = UserModel::all();
         $this->load_view('user',$data);
     }
 

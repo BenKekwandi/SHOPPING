@@ -6,11 +6,11 @@ $capsule = new Capsule;
 
 $capsule->addConnection([
     'driver' => 'mysql',
-    'host' => 'localhost',
+    'host' => '127.0.0.1',
     'database' => 'shop',
     'username' => 'root',
     'password' => '',
-    'port'=>3307
+    'port'=>3306
 ]);
 
 

@@ -1,20 +1,30 @@
 <?php
 
-class AuthMiddleware {
-    
-    function __construct(){
-        
-    }
+function isLoggedIn()
+{
+    return isset($_SESSION['username']);
+}
 
-    public function isLoggedIn(){
-        return true;
-    }
+function isAdminLoggedIn()
+{
+    return isset($_SESSION['admin_name']);
+}
 
-    public function handle($request) {
-        
-        if (!$this->isLoggedIn()) {
-            header('Location: /login');
-            exit();
+function isAdmin()
+{
+    if(isset($_SESSION['user_type']))
+    {
+        if($_SESSION['user_type']=='admin')
+        {
+            return TRUE;
         }
+        else
+        {
+            return FALSE;
+        }
+    }
+    else
+    {
+        return FALSE;
     }
 }

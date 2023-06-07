@@ -10,7 +10,13 @@ class ProductController extends Controller
     }
 
     function viewAll_get() {
-        $result = $this->model->all();
+        $result = ProductModel::all();
+        foreach ($result as &$res) 
+        {
+            $catg=CategoryModel::where('id','=',$res['category_id'])->first();
+            $res['category']=$catg->name;
+            $res['photo'] = '<img height="50" width="60" src="uploads/products/'.$res['picture'].'">';
+        }
         echo json_encode($result);
     }
 
@@ -46,8 +52,13 @@ class ProductController extends Controller
                 if (move_uploaded_file($uploadedFile['tmp_name'], $targetFile))
                 {
                     echo "The file has been uploaded successfully.";
-                    $this->model->create($new_product);
-                    header('Location: /products');
+                    $insertion= ProductModel::create($new_product);
+                    if(!$insertion)
+                    {
+                        header('Location: /admin/product-create');
+                        exit();
+                    }
+                    header('Location: /admin/products');
                     exit();
 
                 }

@@ -24,7 +24,7 @@
             <div class="form-group"><input class="form-control" type="text" name="cell" placeholder="Phone Number"></div>
             <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
             <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-            <div class="form-group"><button type="submit" class="btn btn-primary btn-block">Register</button></div>
+            <div class="form-group"><button type="submit" name="Submit" class="btn btn-primary btn-block">Register</button></div>
         </form>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

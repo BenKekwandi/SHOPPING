@@ -1,4 +1,4 @@
-var url = '/api-categories';
+var url = '/admin/api-categories';
 fetch(url)
     .then(response => response.json())
     .then(data => {

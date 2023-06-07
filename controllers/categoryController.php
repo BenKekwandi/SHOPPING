@@ -12,11 +12,15 @@ class CategoryController extends Controller
     }
 
 
-    function viewAll_get() {
-        $result = $this->model->all();
+    function viewAll_get() 
+    {
+        $result = CategoryModel::all();
+        foreach ($result as &$res) 
+        {
+            $res['photo'] = '<img height="50" width="60" src="uploads/categories/'.$res['picture'].'">';
+        }
         echo json_encode($result);
     }
-
     function getById_get($id) {
         $result = $this->model->find($id);
         echo json_encode($result);
@@ -49,8 +53,13 @@ class CategoryController extends Controller
                 if (move_uploaded_file($uploadedFile['tmp_name'], $targetFile)) 
                 {
                     echo "The file has been uploaded successfully.";
-                    $this->model->create('category',$new_category);
-                    header('Location: /categories');
+                    $insertion=CategoryModel::create($new_category);
+                    if(!$insertion)
+                    {
+                        header('Location: /admin/category-create');
+                        exit();
+                    }
+                    header('Location: /admin/categories');
                     exit();
 
                 } 

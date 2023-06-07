@@ -21,7 +21,7 @@
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
             <div class="form-group"><input class="form-control" type="email" name="username" placeholder="Email"></div>
             <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-            <div class="form-group"><button type="submit" class="btn btn-primary btn-block">Log In</button></div>
+            <div class="form-group"><button type="submit" name="Submit" class="btn btn-primary btn-block">Log In</button></div>
             <a class="forgot" href="#">Forgot your email or password?</a>
              <a class="forgot" href="/register">Register Now</a>
          </form>
